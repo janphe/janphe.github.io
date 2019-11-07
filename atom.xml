@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>秋实无华，琴棋书画</title>
+  <title>秋实无华,琴棋书画</title>
   
   <subtitle>有点时间，有点作为。</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://janphe.com/"/>
-  <updated>2019-11-06T06:38:48.639Z</updated>
+  <updated>2019-11-07T03:17:55.788Z</updated>
   <id>https://janphe.com/</id>
   
   <author>
@@ -17,24 +17,66 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://janphe.com/2019/11/06/hello-world/"/>
-    <id>https://janphe.com/2019/11/06/hello-world/</id>
-    <published>2019-11-06T06:38:48.638Z</published>
-    <updated>2019-11-06T06:38:48.639Z</updated>
+    <title>Mapgen4-2: 地形植被颜色分布</title>
+    <link href="https://janphe.com/2019/11/07/mapgen4-2/"/>
+    <id>https://janphe.com/2019/11/07/mapgen4-2/</id>
+    <published>2019-11-07T03:04:24.000Z</published>
+    <updated>2019-11-07T03:17:55.788Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="mapgen4" scheme="https://janphe.com/categories/mapgen4/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Mapgen4-1: 地形海拔三角面生成</title>
+    <link href="https://janphe.com/2019/11/07/mapgen4-1/"/>
+    <id>https://janphe.com/2019/11/07/mapgen4-1/</id>
+    <published>2019-11-07T03:04:20.000Z</published>
+    <updated>2019-11-07T03:17:53.464Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="mapgen4" scheme="https://janphe.com/categories/mapgen4/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Mapgen4-0: 通过unity学习地形生成</title>
+    <link href="https://janphe.com/2019/11/07/mapgen4-0/"/>
+    <id>https://janphe.com/2019/11/07/mapgen4-0/</id>
+    <published>2019-11-07T02:19:15.000Z</published>
+    <updated>2019-11-07T03:19:17.329Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://simblob.blogspot.com/2018/08/mapgen4-goals.html" target="_blank" rel="noopener">Mapgen4: goals</a><br>来源：<strong><a href="https://www.redblobgames.com" target="_blank" rel="noopener">https://www.redblobgames.com</a></strong></p><p><a href="https://www.redblobgames.com/maps/mapgen4/" target="_blank" rel="noopener">mapgen4</a>的unity实现</p><p><a href="https://baike.baidu.com/item/Delaunay%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86%E7%AE%97%E6%B3%95/3779918" target="_blank" rel="noopener">Delaunay三角剖分算法</a></p><p><a href="https://baike.baidu.com/item/%E6%B3%B0%E6%A3%AE%E5%A4%9A%E8%BE%B9%E5%BD%A2" target="_blank" rel="noopener">泰森多边形又叫冯洛诺伊图（Voronoi diagram）</a></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+        &lt;p&gt;&lt;a href=&quot;https://simblob.blogspot.com/2018/08/mapgen4-goals.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Mapgen4: goals&lt;/a&gt;&lt;br&gt;来源：&lt;strong&gt;&lt;a href
       
     
     </summary>
     
     
+      <category term="mapgen4" scheme="https://janphe.com/categories/mapgen4/"/>
+    
+    
+      <category term="map" scheme="https://janphe.com/tags/map/"/>
+    
+      <category term="unity" scheme="https://janphe.com/tags/unity/"/>
+    
+      <category term="shader" scheme="https://janphe.com/tags/shader/"/>
     
   </entry>
   
