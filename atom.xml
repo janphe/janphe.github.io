@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://janphe.com/"/>
-  <updated>2019-11-07T03:17:55.788Z</updated>
+  <updated>2019-11-07T03:32:47.081Z</updated>
   <id>https://janphe.com/</id>
   
   <author>
@@ -21,9 +21,16 @@
     <link href="https://janphe.com/2019/11/07/mapgen4-2/"/>
     <id>https://janphe.com/2019/11/07/mapgen4-2/</id>
     <published>2019-11-07T03:04:24.000Z</published>
-    <updated>2019-11-07T03:17:55.788Z</updated>
+    <updated>2019-11-07T03:32:47.081Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h1><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;理论&quot;&gt;&lt;a href=&quot;#理论&quot; class=&quot;headerlink&quot; title=&quot;理论&quot;&gt;&lt;/a&gt;理论&lt;/h1&gt;&lt;h1 id=&quot;实现&quot;&gt;&lt;a href=&quot;#实现&quot; class=&quot;headerlink&quot; title=&quot;实现&quot;&gt;&lt;/a&gt;实现&lt;/h1&gt;
+      
     
     </summary>
     
@@ -38,9 +45,16 @@
     <link href="https://janphe.com/2019/11/07/mapgen4-1/"/>
     <id>https://janphe.com/2019/11/07/mapgen4-1/</id>
     <published>2019-11-07T03:04:20.000Z</published>
-    <updated>2019-11-07T03:17:53.464Z</updated>
+    <updated>2019-11-07T03:32:40.608Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h1><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;理论&quot;&gt;&lt;a href=&quot;#理论&quot; class=&quot;headerlink&quot; title=&quot;理论&quot;&gt;&lt;/a&gt;理论&lt;/h1&gt;&lt;h1 id=&quot;实现&quot;&gt;&lt;a href=&quot;#实现&quot; class=&quot;headerlink&quot; title=&quot;实现&quot;&gt;&lt;/a&gt;实现&lt;/h1&gt;
+      
     
     </summary>
     
@@ -55,15 +69,15 @@
     <link href="https://janphe.com/2019/11/07/mapgen4-0/"/>
     <id>https://janphe.com/2019/11/07/mapgen4-0/</id>
     <published>2019-11-07T02:19:15.000Z</published>
-    <updated>2019-11-07T03:19:17.329Z</updated>
+    <updated>2019-11-07T03:39:49.259Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="https://simblob.blogspot.com/2018/08/mapgen4-goals.html" target="_blank" rel="noopener">Mapgen4: goals</a><br>来源：<strong><a href="https://www.redblobgames.com" target="_blank" rel="noopener">https://www.redblobgames.com</a></strong></p><p><a href="https://www.redblobgames.com/maps/mapgen4/" target="_blank" rel="noopener">mapgen4</a>的unity实现</p><p><a href="https://baike.baidu.com/item/Delaunay%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86%E7%AE%97%E6%B3%95/3779918" target="_blank" rel="noopener">Delaunay三角剖分算法</a></p><p><a href="https://baike.baidu.com/item/%E6%B3%B0%E6%A3%AE%E5%A4%9A%E8%BE%B9%E5%BD%A2" target="_blank" rel="noopener">泰森多边形又叫冯洛诺伊图（Voronoi diagram）</a></p>]]></content>
+    <content type="html"><![CDATA[<p>来源：<strong><a href="https://www.redblobgames.com" target="_blank" rel="noopener">https://www.redblobgames.com</a></strong> <a href="https://simblob.blogspot.com/2018/08/mapgen4-goals.html" target="_blank" rel="noopener">Mapgen4: goals</a></p><p>本文的知识点是从<a href="https://www.redblobgames.com/maps/mapgen4/" target="_blank" rel="noopener">mapgen4</a>学来的，然后我自己弄了一个<a href="https://github.com/janphe/Mapgen4Unity" target="_blank" rel="noopener">mapgen4的unity版本</a></p><p>有用到的知识点：</p><ul><li><a href="https://baike.baidu.com/item/Delaunay%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86%E7%AE%97%E6%B3%95/3779918" target="_blank" rel="noopener">Delaunay三角剖分算法</a></li><li><a href="https://baike.baidu.com/item/%E6%B3%B0%E6%A3%AE%E5%A4%9A%E8%BE%B9%E5%BD%A2" target="_blank" rel="noopener">泰森多边形又叫冯洛诺伊图（Voronoi diagram）</a></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;&lt;a href=&quot;https://simblob.blogspot.com/2018/08/mapgen4-goals.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Mapgen4: goals&lt;/a&gt;&lt;br&gt;来源：&lt;strong&gt;&lt;a href
+        &lt;p&gt;来源：&lt;strong&gt;&lt;a href=&quot;https://www.redblobgames.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.redblobgames.com&lt;/a&gt;&lt;/strong&gt; &lt;a href=&quot;https
       
     
     </summary>
