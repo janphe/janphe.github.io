@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://janphe.com/"/>
-  <updated>2019-11-27T04:04:59.377Z</updated>
+  <updated>2019-12-21T07:58:10.068Z</updated>
   <id>https://janphe.com/</id>
   
   <author>
@@ -17,13 +17,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Mapgen4-3: unity shader 获得相机朝向</title>
+    <link href="https://janphe.com/2019/12/21/Mapgen4-3/"/>
+    <id>https://janphe.com/2019/12/21/Mapgen4-3/</id>
+    <published>2019-12-21T07:51:52.000Z</published>
+    <updated>2019-12-21T07:58:10.068Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="shader里面相机朝向"><a href="#shader里面相机朝向" class="headerlink" title="shader里面相机朝向"></a>shader里面相机朝向</h1><ul><li>视图空间 到 世界空间 <strong>unity_CameraToWorld</strong><ul><li>前朝向 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(unity_CameraToWorld, float4(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li><li>右朝向  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(unity_CameraToWorld, float4(<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li><li>上朝向  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(unity_CameraToWorld, float4(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li></ul></li></ul><hr><ul><li>视图空间 到 本地空间 <strong>UNITY_MATRIX_IT_MV</strong><ul><li>前朝向 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(UNITY_MATRIX_IT_MV, float4(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li><li>右朝向  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(UNITY_MATRIX_IT_MV, float4(<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li><li>上朝向  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(UNITY_MATRIX_IT_MV, float4(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;shader里面相机朝向&quot;&gt;&lt;a href=&quot;#shader里面相机朝向&quot; class=&quot;headerlink&quot; title=&quot;shader里面相机朝向&quot;&gt;&lt;/a&gt;shader里面相机朝向&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;视图空间 到 世界空间 &lt;strong&gt;unit
+      
+    
+    </summary>
+    
+    
+      <category term="mapgen4" scheme="https://janphe.com/categories/mapgen4/"/>
+    
+    
+      <category term="unity" scheme="https://janphe.com/tags/unity/"/>
+    
+      <category term="shader" scheme="https://janphe.com/tags/shader/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mapgen4-2: 地形植被颜色分布</title>
     <link href="https://janphe.com/2019/11/07/mapgen4-2/"/>
     <id>https://janphe.com/2019/11/07/mapgen4-2/</id>
     <published>2019-11-07T03:04:24.000Z</published>
-    <updated>2019-11-27T04:04:59.377Z</updated>
+    <updated>2019-12-21T07:46:43.570Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h1><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul><li>cg着色里面的 <strong>全局变量</strong> 问题</li><li>cg着色里面的 <strong>vert</strong> 向 <strong>frag</strong> 传值问题</li><li>地表颜色贴图插值 <strong>FilterMode.Point</strong></li><li>与mapgen4地表 <strong>颜色差异</strong> 问题</li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h1><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul><li>cg着色里面的 <strong>全局变量</strong> 问题<br>不能跟glsl一样在全局使用<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> float2 _decipher = float2(<span class="number">1.0</span>/<span class="number">256.0</span>, <span class="number">1.0</span>);</span><br></pre></td></tr></table></figure></li><li>cg着色里面的 <strong>vert</strong> 向 <strong>frag</strong> 传值问题<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * v2f 结构说明</span></span><br><span class="line"><span class="comment"> * float4 pos:POSITION; 其中“POSITION”指定位置变量，而不是由“pos”指定</span></span><br><span class="line"><span class="comment"> * float2 uv:TEXCOORD0; TEXCOORD0 指定纹理1坐标</span></span><br><span class="line"><span class="comment"> * float2 em:TEXCOORD1; TEXCOORD1 指定纹理2坐标(不能定义成 em:TEXCOORD0，会跟uv值相同)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v2f</span> &#123;</span></span><br><span class="line">float4 pos:SV_POSITION;</span><br><span class="line">float2 v_uv:TEXCOORD0;</span><br><span class="line">float2 v_em:TEXCOORD1;</span><br><span class="line">float4 v_xy:TEXCOORD2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li><li>地表颜色贴图插值 <strong>FilterMode.Point</strong><br>不然没有高度线</li><li>与mapgen4地表 <strong>颜色差异</strong> 问题<br>待续。。。</li></ul>]]></content>
     
     <summary type="html">
     
@@ -46,9 +75,9 @@
     <link href="https://janphe.com/2019/11/07/mapgen4-1/"/>
     <id>https://janphe.com/2019/11/07/mapgen4-1/</id>
     <published>2019-11-07T03:04:20.000Z</published>
-    <updated>2019-11-13T11:26:30.622Z</updated>
+    <updated>2019-12-21T07:52:21.864Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h1><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul><li>顶点数量超过 <strong>ushortMax</strong> 的问题</li><li>顶点海拔可视化问题，是垂直于相机的，不同角度看到的顶点高度一样，而不是正上方看不到顶点高度</li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h1><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul><li>泊松分布生成点保存文件格式（这个我没有实现，我直接用mapgen4省的points） </li><li>顶点数量超过 <strong>ushortMax</strong> 的问题</li><li>顶点海拔可视化问题，是垂直于相机的，不同角度看到的顶点高度一样，而不是正上方看不到顶点高度</li></ul>]]></content>
     
     <summary type="html">
     
