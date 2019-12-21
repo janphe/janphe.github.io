@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://janphe.com/"/>
-  <updated>2019-12-21T07:58:10.068Z</updated>
+  <updated>2019-12-21T08:22:45.182Z</updated>
   <id>https://janphe.com/</id>
   
   <author>
@@ -17,11 +17,48 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Mapgen4-4: unity里的Jobs System不好用</title>
+    <link href="https://janphe.com/2019/12/21/mapgen4-4/"/>
+    <id>https://janphe.com/2019/12/21/mapgen4-4/</id>
+    <published>2019-12-21T08:03:35.000Z</published>
+    <updated>2019-12-21T08:22:45.182Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>主线程卡死</p><ul><li>刚开始我是直接在主线程计算，主线程渲染，实在慢的惨败</li><li>后来仔细看了mapgen4的实现，它是开了一个worker的</li></ul></li><li><p>弄了个Thread计算地形数据也卡</p><ul><li>我也开了一个线程，专门用来计算地图数据</li><li>在编辑器上面跑，也才200ms-300ms这样，慢呀</li><li>mapgen4跑起来渲染只用70ms-80ms这样</li></ul></li><li><p>导出可执行程序，速度很快</p><ul><li>尝试导出可执行程序</li><li>刚开始把 调试代码 勾上导出，速度也不理想</li><li>然后去掉 调试，速度勉强跟得上mapgen4了，80ms-90ms这样</li></ul></li><li><p>弄了个Jobs System，限制太多</p><ul><li>某天看到unity有个Jobs System</li><li>然后尝试用了 <code>NativeArray&lt;T&gt;</code></li><li>然后对array不满意，直接用了 IntPtr</li><li>哇，回到了我的C++时代，各种指针操作随心所欲</li><li>我想说这个Jobs是弱鸡吗，虽然它 <strong>可能可以往GPU上扔数据</strong> 计算，但是，但是，它竟然 <strong>不能在另外一个线程上调用</strong></li></ul></li><li><p>弄了个Parallel.For</p><ul><li>网上搜索了一下C#并行计算</li><li>C#果然有Parallel接口，虽然不能直接往GPU扔数据，但是我对Parallel很满意，之前Jobs的接口直接调用起来</li><li>好了，程序跑起来40ms，我很开心 ^_^..</li><li>有个缺点，地形计算的时候cpu会占用高一下子</li></ul></li><li><p>发现gpu占用好像挺高的</p><ul><li>发现程序跑起来电脑响声很大</li><li>是gpu占用很高，然后想着，每次更新地图后才渲染一次</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;主线程卡死&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;刚开始我是直接在主线程计算，主线程渲染，实在慢的惨败&lt;/li&gt;
+&lt;li&gt;后来仔细看了mapgen4的实现，它是开了一个worker的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;弄了个Thread计算地形数据也卡&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="mapgen4" scheme="https://janphe.com/categories/mapgen4/"/>
+    
+    
+      <category term="unity" scheme="https://janphe.com/tags/unity/"/>
+    
+      <category term="thread" scheme="https://janphe.com/tags/thread/"/>
+    
+      <category term="parallel" scheme="https://janphe.com/tags/parallel/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mapgen4-3: unity shader 获得相机朝向</title>
-    <link href="https://janphe.com/2019/12/21/Mapgen4-3/"/>
-    <id>https://janphe.com/2019/12/21/Mapgen4-3/</id>
+    <link href="https://janphe.com/2019/12/21/mapgen4-3/"/>
+    <id>https://janphe.com/2019/12/21/mapgen4-3/</id>
     <published>2019-12-21T07:51:52.000Z</published>
-    <updated>2019-12-21T07:58:10.068Z</updated>
+    <updated>2019-12-21T08:03:11.905Z</updated>
     
     <content type="html"><![CDATA[<h1 id="shader里面相机朝向"><a href="#shader里面相机朝向" class="headerlink" title="shader里面相机朝向"></a>shader里面相机朝向</h1><ul><li>视图空间 到 世界空间 <strong>unity_CameraToWorld</strong><ul><li>前朝向 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(unity_CameraToWorld, float4(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li><li>右朝向  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(unity_CameraToWorld, float4(<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li><li>上朝向  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(unity_CameraToWorld, float4(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li></ul></li></ul><hr><ul><li>视图空间 到 本地空间 <strong>UNITY_MATRIX_IT_MV</strong><ul><li>前朝向 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(UNITY_MATRIX_IT_MV, float4(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li><li>右朝向  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(UNITY_MATRIX_IT_MV, float4(<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li><li>上朝向  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float3 forward = mul(UNITY_MATRIX_IT_MV, float4(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>)).xyz;</span><br></pre></td></tr></table></figure></li></ul></li></ul>]]></content>
     

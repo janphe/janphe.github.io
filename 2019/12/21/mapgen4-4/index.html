@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="这个主人很懒，什么也没有留下！"><title>Mapgen4-4: unity里的Jobs System不好用 | 秋实无华,琴棋书画</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 4.0.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Mapgen4-4: unity里的Jobs System不好用</h1><a id="logo" href="/.">秋实无华,琴棋书画</a><p class="description">有点时间，有点作为。</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Mapgen4-4: unity里的Jobs System不好用</h1><div class="post-meta">Dec 21, 2019<span> | </span><span class="category"><a href="/categories/mapgen4/">mapgen4</a></span></div><div class="post-content"><ul>
+<li><p>主线程卡死</p>
+<ul>
+<li>刚开始我是直接在主线程计算，主线程渲染，实在慢的惨败</li>
+<li>后来仔细看了mapgen4的实现，它是开了一个worker的</li>
+</ul>
+</li>
+<li><p>弄了个Thread计算地形数据也卡</p>
+<ul>
+<li>我也开了一个线程，专门用来计算地图数据</li>
+<li>在编辑器上面跑，也才200ms-300ms这样，慢呀</li>
+<li>mapgen4跑起来渲染只用70ms-80ms这样</li>
+</ul>
+</li>
+<li><p>导出可执行程序，速度很快</p>
+<ul>
+<li>尝试导出可执行程序</li>
+<li>刚开始把 调试代码 勾上导出，速度也不理想</li>
+<li>然后去掉 调试，速度勉强跟得上mapgen4了，80ms-90ms这样</li>
+</ul>
+</li>
+<li><p>弄了个Jobs System，限制太多</p>
+<ul>
+<li>某天看到unity有个Jobs System</li>
+<li>然后尝试用了 <code>NativeArray&lt;T&gt;</code></li>
+<li>然后对array不满意，直接用了 IntPtr</li>
+<li>哇，回到了我的C++时代，各种指针操作随心所欲</li>
+<li>我想说这个Jobs是弱鸡吗，虽然它 <strong>可能可以往GPU上扔数据</strong> 计算，但是，但是，它竟然 <strong>不能在另外一个线程上调用</strong></li>
+</ul>
+</li>
+<li><p>弄了个Parallel.For</p>
+<ul>
+<li>网上搜索了一下C#并行计算</li>
+<li>C#果然有Parallel接口，虽然不能直接往GPU扔数据，但是我对Parallel很满意，之前Jobs的接口直接调用起来</li>
+<li>好了，程序跑起来40ms，我很开心 ^_^..</li>
+<li>有个缺点，地形计算的时候cpu会占用高一下子</li>
+</ul>
+</li>
+<li><p>发现gpu占用好像挺高的</p>
+<ul>
+<li>发现程序跑起来电脑响声很大</li>
+<li>是gpu占用很高，然后想着，每次更新地图后才渲染一次</li>
+</ul>
+</li>
+</ul>
+</div><div class="tags"><a href="/tags/unity/">unity</a><a href="/tags/thread/">thread</a><a href="/tags/parallel/">parallel</a></div><div class="post-nav"><a class="next" href="/2019/12/21/mapgen4-3/">Mapgen4-3: unity shader 获得相机朝向</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="https://janphe.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/mapgen4/">mapgen4</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/map/" style="font-size: 15px;">map</a> <a href="/tags/unity/" style="font-size: 15px;">unity</a> <a href="/tags/shader/" style="font-size: 15px;">shader</a> <a href="/tags/thread/" style="font-size: 15px;">thread</a> <a href="/tags/parallel/" style="font-size: 15px;">parallel</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/12/21/mapgen4-4/">Mapgen4-4: unity里的Jobs System不好用</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/21/mapgen4-3/">Mapgen4-3: unity shader 获得相机朝向</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/07/mapgen4-2/">Mapgen4-2: 地形植被颜色分布</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/07/mapgen4-1/">Mapgen4-1: 地形海拔三角面生成</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/07/mapgen4-0/">Mapgen4-0: 通过unity学习地形生成</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.stats.gov.cn/" title="国家统计局" target="_blank">国家统计局</a><ul></ul><a href="https://www.redblobgames.com/maps/mapgen4/" title="Mapgen4" target="_blank">Mapgen4</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">dphe.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
