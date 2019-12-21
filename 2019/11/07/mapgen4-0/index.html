@@ -2,7 +2,28 @@
 <p>本文的知识点是从 <a href="https://github.com/redblobgames/mapgen4" target="_blank" rel="noopener">mapgen4</a> 学来的，然后我自己弄了一个 <a href="https://github.com/janphe/Mapgen4Unity" target="_blank" rel="noopener">mapgen4的unity版本</a>。</p>
 <p>有用到的知识点：</p>
 <ul>
+<li>泊松分布采样</li>
 <li><a href="https://baike.baidu.com/item/Delaunay%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86%E7%AE%97%E6%B3%95/3779918" target="_blank" rel="noopener">Delaunay三角剖分算法</a></li>
 <li><a href="https://baike.baidu.com/item/%E6%B3%B0%E6%A3%AE%E5%A4%9A%E8%BE%B9%E5%BD%A2" target="_blank" rel="noopener">泰森多边形又叫冯洛诺伊图（Voronoi diagram）</a></li>
+<li>噪音取样</li>
 </ul>
+<p>断断续续将近两个月，终于把mapgen4基本翻译成Unity版本的了。<br>想在回想来，深入理解这个代码，门槛还是有的，喜欢敲代码的人才能看得进去。</p>
+<p>程序的整体流程是这样的：  </p>
+<h1 id="数据生成"><a href="#数据生成" class="headerlink" title="数据生成"></a>数据生成</h1><ul>
+<li>刚开始只有一些参数，最重要的是随机种子 整型数字 <strong>seed</strong></li>
+<li>泊松采样一次认定为山峰的点，然后再采样一次为其余地形的点</li>
+<li>把采样的点进行Delaunay三角剖分，然后得到代表泰森多边形的数据</li>
+<li>细化处理一下山峰的点，生成地形海拔数据</li>
+<li>计算地形风向、降雨量、湿度分布，生成地形湿度数据</li>
+<li>计算地形高度落差，地形高度排序；相对于河流，逆转顺序由低往高，从海岸线开始计算，生成河流线路；再根据湿度总和生成河流宽度。<h1 id="地形渲染"><a href="#地形渲染" class="headerlink" title="地形渲染"></a>地形渲染</h1></li>
+<li>生成河流网格数据</li>
+<li>渲染成<strong>河流贴图</strong> 顶视图相机</li>
+<li>生成地形网格数据</li>
+<li>渲染成海拔<strong>高度贴图</strong> 顶视图相机</li>
+<li>渲染成海拔<strong>高度贴图</strong> 当前相机</li>
+<li>根据顶视图相机高度贴图计算<strong>植被颜色</strong>，根据当前相机高度贴图计算<strong>地形边缘加深</strong>效果</li>
+<li>渲染最终地形效果到<strong>地形贴图</strong>，每次有更新后才渲染一次</li>
+<li>在UI界面输出地形贴图</li>
+</ul>
+<p>程序中数据生成相关都在 <strong>MapJobs</strong> 文件夹下面，渲染逻辑控制是 <strong>MapMesh.cs</strong> 文件；实际渲染逻辑是shander实现的，我把<strong>mapgen4</strong> glsl代码 翻译成 unity cg代码；在 <strong>Shaders</strong> 文件夹下面，其中 <strong>VertexColorsOnly.shader</strong> 是重要逻辑，里面有 <strong>3个pass</strong>用来计算边缘加深效果outlines。</p>
 </div><div class="tags"><a href="/tags/map/">map</a><a href="/tags/unity/">unity</a><a href="/tags/shader/">shader</a></div><div class="post-nav"><a class="pre" href="/2019/11/07/mapgen4-1/">Mapgen4-1: 地形海拔三角面生成</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="https://janphe.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/mapgen4/">mapgen4</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/map/" style="font-size: 15px;">map</a> <a href="/tags/unity/" style="font-size: 15px;">unity</a> <a href="/tags/shader/" style="font-size: 15px;">shader</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/11/07/mapgen4-2/">Mapgen4-2: 地形植被颜色分布</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/07/mapgen4-1/">Mapgen4-1: 地形海拔三角面生成</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/07/mapgen4-0/">Mapgen4-0: 通过unity学习地形生成</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.stats.gov.cn/" title="国家统计局" target="_blank">国家统计局</a><ul></ul><a href="https://www.redblobgames.com/maps/mapgen4/" title="Mapgen4" target="_blank">Mapgen4</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">dphe.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
